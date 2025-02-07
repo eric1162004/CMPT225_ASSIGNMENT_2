@@ -20,6 +20,7 @@ reaches a threshold.
 #include <algorithm>
 #include <functional>
 #include <string>
+#include "QuadraticProbing.cpp"
 using namespace std;
 
 // Return a prime number at least as large as n.
@@ -43,8 +44,10 @@ class HashTable
 {
 public:
     // Constructor: Initialize a hash table with an array of size
-    // that is a prime number >= of a given size.
+    // that is the smallest prime number greater than
+    // or equal to the specified size.
     // If the size is not provided, it is default to 101.
+    // Constructor is marked with explicit to prevent implicit convertion
     explicit HashTable(int size = 101) : array(nextPrime(size))
     {
         // Initialize all HashEntry to EMPTY
@@ -69,27 +72,27 @@ public:
     }
 
     // Insert an HashedObj x into the hash table
-    // bool insert(const HashedObj &x)
-    // {
-    //     // Insert x as active
-    //     int currentPos = findPos(x);
+    bool insert(const HashedObj &x)
+    {
+        // Insert x as active
+        int currentPos = findPos(x);
 
-    //     //
-    //     if (isActive(currentPos))
-    //         return false;
+        //
+        if (isActive(currentPos))
+            return false;
 
-    //     if (array[currentPos].info != DELETED)
-    //         ++currentSize;
+        if (array[currentPos].info != DELETED)
+            ++currentSize;
 
-    //     array[currentPos].element = x;
-    //     array[currentPos].info = ACTIVE;
+        array[currentPos].element = x;
+        array[currentPos].info = ACTIVE;
 
-    //     // Rehash; see Section 5.5
-    //     if (currentSize > array.size() / 2)
-    //         rehash();
+        // Rehash; see Section 5.5
+        if (currentSize > (int)array.size() / 2)
+            rehash();
 
-    //     return true;
-    // }
+        return true;
+    }
 
     // Insert an HashedObj x into the hash table
     // with move semantics
@@ -99,13 +102,13 @@ public:
         int currentPos = findPos(x);
 
         // If the position is already occupied by active element,
-        // this mean the hash table is full. 
+        // this mean the hash table is full.
         // Remark: this should not happen as the hash table will
         // rehash as it reaches a threshold.
         if (isActive(currentPos))
             return false;
 
-        // If the position is not maked as DELETED or ACTIVE, 
+        // If the position is not maked as DELETED or ACTIVE,
         // meaning the position is EMPTY and is available to insertion.
         if (array[currentPos].info != DELETED)
             ++currentSize;
@@ -126,7 +129,7 @@ public:
     {
         int currentPos = findPos(x);
         // The position is either EMPTY or DELETE,
-        // meaning x is not in the array. 
+        // meaning x is not in the array.
         if (!isActive(currentPos))
             return false;
 
@@ -145,11 +148,11 @@ private:
     // Hold information about an entry within a hash table
     struct HashEntry
     {
-        HashedObj element; // The actual data being stored 
-        EntryType info; // EMPTY, OCCUPIED or DELETED
+        HashedObj element; // The actual data being stored
+        EntryType info;    // EMPTY, OCCUPIED or DELETED
 
         // Allow constructing an HashEntry without
-        // providing a HashedObj. 
+        // providing a HashedObj.
         // The element is set to default according to its type.
         HashEntry(const HashedObj &e = HashedObj{}, EntryType i = EMPTY)
             : element{e}, info{i} {}
@@ -162,7 +165,7 @@ private:
     };
 
     vector<HashEntry> array; // Array that holds the HashEntries
-    int currentSize; // The current size of the array
+    int currentSize;         // The current size of the array
 
     // Return the status of a HashEntry
     bool isActive(int currentPos) const
@@ -170,25 +173,25 @@ private:
         return array[currentPos].info == ACTIVE;
     }
 
-    // Find the position for an element x 
-    // the array using quadratic probing. 
+    // Find the position for an element x
+    // the array using quadratic probing.
     // This function either returns the index of x,
     // if x is found, or the index of the first empty position.
     int findPos(const HashedObj &x) const
     {
-        int offset = 1; // offset value for hash(x) 
+        int offset = 1;             // offset value for hash(x)
         int currentPos = myhash(x); //  Returns the initial hash index
 
-        // Stop searching if current position is 
-        // EMPTY or the element is found. 
+        // Stop searching if current position is
+        // EMPTY or the element is found.
         while (array[currentPos].info != EMPTY &&
                array[currentPos].element != x)
         {
             currentPos += offset; // Compute ith probe
             offset += 2;
             // same effect as mod array.size()
-            if (currentPos >= array.size())
-                currentPos -= array.size();
+            if (currentPos >= (int)array.size())
+                currentPos -= (int)array.size();
         }
 
         return currentPos;
