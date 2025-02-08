@@ -19,6 +19,8 @@ of key-value pairs.
 #include <algorithm>
 #include <functional>
 #include <string>
+#include "QuadraticProbing.cpp"
+
 using namespace std;
 
 /**
@@ -104,7 +106,7 @@ public:
         array[currentPos].info = ACTIVE;
 
         // Rehash; see Section 5.5
-        if (currentSize > array.size() / 2)
+        if (currentSize > (int)array.size() / 2)
             rehash();
 
         return true;
@@ -136,7 +138,7 @@ public:
         array[currentPos].info = ACTIVE;
 
         // Rehash; see Section 5.5
-        if (currentSize > array.size() / 2)
+        if (currentSize > (int)array.size() / 2)
             rehash();
 
         return true;
@@ -170,7 +172,7 @@ public:
 
 private:
     /**
-     * Represents an entry in the hash table, 
+     * Represents an entry in the hash table,
      * storing a key, value, and status.
      */
     struct HashEntry
@@ -200,7 +202,7 @@ private:
     vector<HashEntry> array; // Array that holds the HashEntries
     int currentSize;         // The current size of the array
 
-   /**
+    /**
      * Check if the entry at the specified position is active.
      *
      * @param currentPos The position to check.
@@ -265,7 +267,7 @@ private:
     size_t myhash(const HashedObj &x) const
     {
         // Using static here so the hf is reused accoss all calls
-        static hash<HashedKey> hf;
+        static hash<HashedObj> hf;
 
         // Note: hf(x) returns the hash value for x
         return hf(x) % array.size();
