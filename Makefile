@@ -26,10 +26,6 @@ QuadraticProbingTest: TestQuadraticProbing.cpp QuadraticProbing.cpp QuadraticPro
 BiMapTest: TestBiMap.cpp BiMap.h QuadraticProbingBiMap.h QuadraticProbing.cpp
 	$(CXX) $(CXXFLAGS) -o BiMapTest TestBiMap.cpp
 	./BiMapTest 
-# Compile BiMap Test and run it
-BiMapTest: TestBiMap.cpp BiMap.h QuadraticProbingBiMap.h QuadraticProbing.cpp
-	$(CXX) $(CXXFLAGS) -o BiMapTest TestBiMap.cpp
-	./BiMapTest 
 
 clean:
 	rm -f QuadraticProbingTest BiMapTest

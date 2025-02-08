@@ -9,7 +9,7 @@ Unauthorized copying or distribution is prohibited.
 
 Purpose of this file:
 This file implements a modified HashTable class using quadratic probing
-to meet the needs of the BiMap class. The hash table supports HashedObj 
+to meet the needs of the BiMap class. The hash table supports key/value 
 insertion, removal, and lookup of key-value pairs.
 */
 

@@ -10,7 +10,7 @@ Unauthorized copying or distribution is prohibited.
 Purpose of this file:
 This file tests the functionality of the BiMap class.
 It verify the correctness of the BiMap public operations.
-Please refer to BiMap.h for operations documantation.
+Please refer to BiMap.h for documantation.
 */
 #include <iostream>
 #include "BiMap.h"
