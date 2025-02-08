@@ -18,7 +18,7 @@ and to remove a pair given a key or value.
 #ifndef BI_MAP_H
 #define BI_MAP_H
 
-#include "QuadraticProbing.h" // Required for HashTable
+#include "QuadraticProbingBiMap.h" // Required for HashTable
 using namespace std;
 
 // Bijective Map class
