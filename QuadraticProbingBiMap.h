@@ -121,8 +121,8 @@ public:
         if (array[currentPos].info != DELETED)
             ++currentSize;
 
-        array[currentPos].key = x;
-        array[currentPos].value = y;
+        array[currentPos].key = x; // Store the key
+        array[currentPos].value = y; // Store the value
         array[currentPos].info = ACTIVE;
 
         // Rehash; see Section 5.5
@@ -197,7 +197,8 @@ public:
 
 private:
     /**
-     * Represents an entry in the hash table, storing a key, value, and status.
+     * Represents an entry in the hash table, 
+     * storing a key, value, and status.
      */
     struct HashEntry
     {

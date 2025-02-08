@@ -8,8 +8,10 @@ This code is part of the assignment 2a for CSPT 225, Spring 2025.
 Unauthorized copying or distribution is prohibited.
 
 Purpose of this file:
+This file includes helper functions for generating 
+and determining prime numbers, which are used in 
+resizing a hash table.
 */
-#include "QuadraticProbing.h"
 #include <iostream>
 using namespace std;
 
